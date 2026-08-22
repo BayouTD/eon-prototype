@@ -24,7 +24,7 @@ function cevrenEvidenceResponsibility(d){
 function cevrenResponsibilityCard(d){
   const r=cevrenEvidenceResponsibility(d);
   const section=(label,lead,items,cls='')=>items.length?`<div class="support-section ${cls}"><b>${label}</b><p class="muted">${lead}</p>${items.map(x=>`<p>• ${esc(x)}</p>`).join('')}</div>`:'';
-  return `<div class="card responsibility-card"><div class="label">Evidence responsibility</div><h2>Who owns the next work?</h2><p>Cevren should not send you away to collect evidence that Cevren itself should research.</p>${section('Cevren owes the research','General medical evidence belongs on Cevren’s side of the table. In this prototype, these items are queued for the next verified sourcing capability.',r.cevren,'cevren-owned')}${section('You can supply','Personal records or facts only you may have access to.',r.user)}${section('A clinician must resolve','These require examination, diagnosis, professional judgment, or clinical oversight rather than literature retrieval alone.',r.clinician)}${section('May remain uncertain','Some uncertainty cannot honestly be eliminated. Cevren should name it rather than manufacture confidence.',r.irreducible)}${r.cevren.length?`<div class="row"><button class="secondary" id="showResearchQueue">View Cevren’s research queue</button></div>`:''}</div>`;
+  return `<div class="card responsibility-card"><div class="label">Evidence responsibility</div><h2>Who owns the next work?</h2><p>Cevren should not send you away to collect evidence that Cevren itself should research.</p>${section('Cevren owns the research','General medical evidence belongs on Cevren’s side of the table. In this prototype, these items are queued for the next verified sourcing capability.',r.cevren,'cevren-owned')}${section('You can supply','Personal records or facts only you may have access to.',r.user)}${section('A clinician must resolve','These require examination, diagnosis, professional judgment, or clinical oversight rather than literature retrieval alone.',r.clinician)}${section('May remain uncertain','Some uncertainty cannot honestly be eliminated. Cevren should name it rather than manufacture confidence.',r.irreducible)}${r.cevren.length?`<div class="row"><button class="secondary" id="showResearchQueue">View Cevren’s research queue</button></div>`:''}</div>`;
 }
 
 function cevrenResearchQueueCard(d){
@@ -53,7 +53,6 @@ decision=function(){
   const d=S.decisions.find(x=>x.id===S.currentDecision);
   if(!d||d.evidenceResolving)return;
 
-  // Insert responsibility immediately after decision-worthiness so the user sees ownership early.
   const worth=[...document.querySelectorAll('#main > .card')].find(card=>card.querySelector('.label')?.textContent?.trim().toLowerCase()==='decision-worthiness');
   if(worth&&!document.querySelector('.responsibility-card')&&(d.missingEvidence||[]).length){
     const wrap=document.createElement('div');
@@ -77,7 +76,6 @@ decision=function(){
     }
   }
 
-  // Clean development-only version copy inherited from the v0.7 evidence entry.
   [...document.querySelectorAll('.evidence-entry-card .muted')].forEach(p=>{
     p.textContent='Describe a relevant lab result, clinician input, imaging finding, or other evidence in your own words. Cevren will treat it as user-supplied—not independently verified.';
   });
