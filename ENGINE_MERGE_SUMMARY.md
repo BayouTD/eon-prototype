@@ -1,0 +1,1 @@
+Generalized engine branch introduces the first unscripted decision architecture. No topic keyword determines a prewritten clinical path. The engine uses structured AI output to interpret, assign evidence responsibility, request minimal context, and select a decision state.
